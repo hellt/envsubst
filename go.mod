@@ -1,3 +1,3 @@
-module github.com/a8m/envsubst
+module github.com/hellt/envsubst
 
 go 1.19

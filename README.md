@@ -13,7 +13,7 @@ Latest stable `envsubst` [prebuilt binaries for 64-bit Linux, or Mac OS X][relea
 
 ###### Linux and MacOS
 ```console
-curl -L https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-`uname -s`-`uname -m` -o envsubst
+curl -L https://github.com/hellt/envsubst/releases/download/v1.2.0/envsubst-`uname -s`-`uname -m` -o envsubst
 chmod +x envsubst
 sudo mv envsubst /usr/local/bin
 ```
@@ -21,13 +21,13 @@ sudo mv envsubst /usr/local/bin
 ###### Windows
 Download the latest prebuilt binary from [releases page][releases], or if you have curl installed:
 ```console
-curl -L https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst.exe
+curl -L https://github.com/hellt/envsubst/releases/download/v1.2.0/envsubst.exe
 ```
 
 ##### With go
 You can install via `go get` (provided you have installed go):
 ```console
-go get github.com/a8m/envsubst/cmd/envsubst
+go get github.com/hellt/envsubst/cmd/envsubst
 ```
 
 
@@ -56,13 +56,13 @@ The flags and their restrictions are:
 These flags can be combined to form tighter restrictions. 
 
 #### Using `envsubst` programmatically ?
-You can take a look on [`_example/main`](https://github.com/a8m/envsubst/blob/master/_example/main.go) or see the example below.
+You can take a look on [`_example/main`](https://github.com/hellt/envsubst/blob/master/_example/main.go) or see the example below.
 ```go
 package main
 
 import (
 	"fmt"
-	"github.com/a8m/envsubst"
+	"github.com/hellt/envsubst"
 )
 
 func main() {
@@ -97,9 +97,9 @@ func main() {
 #### License
 MIT
 
-[releases]: https://github.com/a8m/envsubst/releases
+[releases]: https://github.com/hellt/envsubst/releases
 [releases-image]: https://img.shields.io/github/downloads/a8m/envsubst/total.svg?style=for-the-badge
-[godoc-url]: https://godoc.org/github.com/a8m/envsubst
+[godoc-url]: https://godoc.org/github.com/hellt/envsubst
 [godoc-img]: https://img.shields.io/badge/godoc-reference-blue.svg?style=for-the-badge
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge
 [license-url]: LICENSE

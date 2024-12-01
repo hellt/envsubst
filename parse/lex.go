@@ -123,8 +123,8 @@ func (l *lexer) nextItem() item {
 // lex creates a new scanner for the input string.
 func lex(input string, noDigit bool) *lexer {
 	l := &lexer{
-		input: input,
-		items: make(chan item),
+		input:   input,
+		items:   make(chan item),
 		noDigit: noDigit,
 	}
 	go l.run()

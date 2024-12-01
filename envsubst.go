@@ -1,10 +1,9 @@
 package envsubst
 
 import (
-	"io/ioutil"
 	"os"
 
-	"github.com/a8m/envsubst/parse"
+	"github.com/hellt/envsubst/parse"
 )
 
 // String returns the parsed template string after processing it.
@@ -26,13 +25,13 @@ func StringRestrictedNoDigit(s string, noUnset, noEmpty bool, noDigit bool) (str
 	return StringNoReplace(s, noUnset, noEmpty, noDigit, false)
 }
 
-// Like StringRestrictedNoDigit but additionally allows to leave not found variables unreplaced
+// StringNoReplace is like StringRestrictedNoDigit but additionally allows to leave not found variables unreplaced
 //
 // e.g. P4s$w0rd123! to remain P4s$w0rd123!
 // as opposed to P4s! IF no EnvVar is found to match
 func StringNoReplace(s string, noUnset, noEmpty, noDigit, noReplace bool) (string, error) {
 	return parse.New("string", os.Environ(),
-		&parse.Restrictions{noUnset, noEmpty, noDigit, noReplace}).Parse(s)
+		&parse.Restrictions{NoUnset: noUnset, NoEmpty: noEmpty, NoDigit: noDigit, NoReplace: noReplace}).Parse(s)
 }
 
 // Bytes returns the bytes represented by the parsed template after processing it.
@@ -53,13 +52,13 @@ func BytesRestrictedNoDigit(b []byte, noUnset, noEmpty bool, noDigit bool) ([]by
 	return BytesRestrictedNoReplace(b, noUnset, noEmpty, noDigit, false)
 }
 
-// Like BytesRestrictedNoDigit but additionally allows to leave not found variables unreplaced
+// BytesRestrictedNoReplace is like BytesRestricted but additionally allows to leave not found variables unreplaced
 //
 // e.g. P4s$w0rd123! to remain P4s$w0rd123!
 // as opposed to P4s! IF no EnvVar is found to match
 func BytesRestrictedNoReplace(b []byte, noUnset, noEmpty, noDigit, noReplace bool) ([]byte, error) {
 	s, err := parse.New("bytes", os.Environ(),
-		&parse.Restrictions{noUnset, noEmpty, noDigit, noReplace}).Parse(string(b))
+		&parse.Restrictions{NoUnset: noUnset, NoEmpty: noEmpty, NoDigit: noDigit, NoReplace: noReplace}).Parse(string(b))
 	if err != nil {
 		return nil, err
 	}
@@ -82,7 +81,7 @@ func ReadFileRestricted(filename string, noUnset, noEmpty bool) ([]byte, error) 
 
 // Like ReadFileRestricted but additionally allows to ignore env variables which start with a digit.
 func ReadFileRestrictedNoDigit(filename string, noUnset, noEmpty bool, noDigit bool) ([]byte, error) {
-	b, err := ioutil.ReadFile(filename)
+	b, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}

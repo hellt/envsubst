@@ -1,8 +1,8 @@
 package parse
 
 import (
-	"testing"
 	"strings"
+	"testing"
 )
 
 type lexTest struct {
