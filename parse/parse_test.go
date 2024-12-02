@@ -175,6 +175,16 @@ func TestNoReplace(t *testing.T) {
 			`Some: bar
 		NoReplace: Stuff$ToIgnore!d`,
 		},
+
+		"if default is set, noreplace should not be used": {
+			input: `Some: $REPLACE
+		NoReplaceNotToBeUsed: ${someVarWithDefault:=myDefault}`,
+			env:          []string{"REPLACE=bar"},
+			restrictions: &Restrictions{NoUnset: false, NoEmpty: false, NoDigit: true, NoReplace: true},
+			expected: `Some: bar
+		NoReplaceNotToBeUsed: myDefault`,
+		},
+
 		"if unset true - should error": {
 			`Some: $REPLACE
 		NoReplace: Stuff$ToIgnore!d`,
@@ -182,6 +192,7 @@ func TestNoReplace(t *testing.T) {
 			&Restrictions{true, false, true, true},
 			`variable ${ToIgnore} not set`,
 		},
+
 		"noreplace set to false should return empty string": {
 			`Some: $REPLACE
 NoReplace: Stuff$ToIgnore!d`,
