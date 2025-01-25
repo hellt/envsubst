@@ -177,12 +177,14 @@ func TestNoReplace(t *testing.T) {
 		},
 
 		"if default is set, noreplace should not be used": {
-			input: `Some: $REPLACE
-		NoReplaceNotToBeUsed: ${someVarWithDefault:=myDefault}`,
+			input: `ExistingEnvVarIsReplaced: $REPLACE
+		NoReplaceNotToBeUsedWithDefault: ${someVarWithDefault:=myDefault}
+		NoReplaceShouldNotReplaceNonExistingEnvVar: $ToIgnore`,
 			env:          []string{"REPLACE=bar"},
 			restrictions: &Restrictions{NoUnset: false, NoEmpty: false, NoDigit: true, NoReplace: true},
-			expected: `Some: bar
-		NoReplaceNotToBeUsed: myDefault`,
+			expected: `ExistingEnvVarIsReplaced: bar
+		NoReplaceNotToBeUsed: myDefault
+		NoReplaceShouldNotReplaceNonExistingEnvVar: $ToIgnore`,
 		},
 
 		"if unset true - should error": {
