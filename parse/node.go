@@ -88,7 +88,12 @@ func (t *SubstitutionNode) String() (string, error) {
 	if t.ExpType >= itemPlus && t.Default != nil {
 		switch t.ExpType {
 		case itemColonDash, itemColonEquals:
-			if s, _ := t.Variable.String(); s != "" {
+			s, _ := t.Variable.String()
+			// if default is set and the returned string equals the var name, apply the default
+			if t.Default != nil && s == fmt.Sprintf("$%s", t.Variable.Ident) {
+				return t.Default.String()
+			}
+			if s != "" {
 				return s, nil
 			}
 			return t.Default.String()

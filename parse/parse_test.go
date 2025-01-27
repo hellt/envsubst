@@ -183,7 +183,7 @@ func TestNoReplace(t *testing.T) {
 			env:          []string{"REPLACE=bar"},
 			restrictions: &Restrictions{NoUnset: false, NoEmpty: false, NoDigit: true, NoReplace: true},
 			expected: `ExistingEnvVarIsReplaced: bar
-		NoReplaceNotToBeUsed: myDefault
+		NoReplaceNotToBeUsedWithDefault: myDefault
 		NoReplaceShouldNotReplaceNonExistingEnvVar: $ToIgnore`,
 		},
 
@@ -197,11 +197,11 @@ func TestNoReplace(t *testing.T) {
 
 		"noreplace set to false should return empty string": {
 			`Some: $REPLACE
-NoReplace: Stuff$ToIgnore!d`,
+		NoReplace: Stuff$ToIgnore!d`,
 			[]string{"REPLACE=bar"},
 			&Restrictions{false, false, true, false},
 			`Some: bar
-NoReplace: Stuff!d`,
+		NoReplace: Stuff!d`,
 		},
 	}
 	for name, test := range ttests {
