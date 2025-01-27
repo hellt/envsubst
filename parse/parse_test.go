@@ -189,7 +189,7 @@ func TestNoReplace(t *testing.T) {
 
 		"if unset true - should error": {
 			`Some: $REPLACE
-				NoReplace: Stuff$ToIgnore!d`,
+		NoReplace: Stuff$ToIgnore!d`,
 			[]string{"REPLACE=bar"},
 			&Restrictions{true, false, true, true},
 			`variable ${ToIgnore} not set`,
